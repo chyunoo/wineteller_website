@@ -6,7 +6,7 @@ from typing import Any, Dict, List, Optional
 
 import streamlit as st
 import yaml
-from streamlit import _get_script_run_ctx
+# from streamlit import _get_script_run_ctx
 # from streamlit import StreamlitAPIException, _get_script_run_ctx
 from streamlit.source_util import get_pages
 from streamlit.util import calc_md5
@@ -208,7 +208,7 @@ def get_all_pages() -> Dict[str, Dict[str, str]]:
 
 
 def get_page_name() -> str:
-    ctx = _get_script_run_ctx()
+    ctx = st._get_script_run_ctx()
 
     if ctx is None:
         raise TypeError("Only works when run from a streamlit app")
