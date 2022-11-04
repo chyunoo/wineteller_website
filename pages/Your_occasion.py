@@ -47,7 +47,7 @@ if st.button('Pair occasion'):
         params = dict(
             occasion = occasion)
 
-        wineteller_url = "http://localhost:8000/predict"
+        wineteller_url = "https://wineteller-wid5zf5noq-ew.a.run.app"
         try :
             response = requests.get(wineteller_url, params=params)
 
