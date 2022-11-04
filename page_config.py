@@ -6,7 +6,8 @@ from typing import Any, Dict, List, Optional
 
 import streamlit as st
 import yaml
-from streamlit import StreamlitAPIException, _get_script_run_ctx
+from streamlit import _get_script_run_ctx
+# from streamlit import StreamlitAPIException, _get_script_run_ctx
 from streamlit.source_util import get_pages
 from streamlit.util import calc_md5
 
@@ -231,7 +232,7 @@ def add_page_header():
             page_icon=page_config.icon,
             layout=page_config.layout,
         )
-    except StreamlitAPIException:
+    except st.StreamlitAPIException:
         pass
 
     st.title(f"{page_config.icon} {title}")
