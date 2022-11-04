@@ -1,6 +1,6 @@
 import streamlit as st
 from page_config import standard_page_widgets
-img_path = "/Users/hyunoochang/Desktop/blank.jpg"
+img_path = "./utils/blank.jpg"
 
 # Add this on top of any page to make mpa-config work!
 standard_page_widgets()
