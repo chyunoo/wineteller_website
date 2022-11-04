@@ -68,6 +68,10 @@ st.write("")
 
 st.write("Cheers ! 😎")
 
-
+st.write("--")
 
 #### sign ponpon and louis #### (github links)
+founder = '[Hyunoo](https://github.com/chyunoo)'
+cofounder = '[Clément](https://github.com/ponpon32)'
+
+st.caption(f" Kindly brought to you by {founder} and {cofounder}")
