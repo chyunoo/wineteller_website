@@ -40,13 +40,13 @@ st.markdown("""
     ##### WineTeller🍷🥂 helps you find the right bottle of wine for your special occasion.
 
     We are the kind of people who believes that there are no **general guideline** for picking a decent bottle of wine and
-    that anyone, **regardless of their knowledge** of wine, should be able to find a bottle that they will **trully appreciate**.
+    that anyone, **regardless of their knowledge** in wine, should be able to find a bottle that they will **truly appreciate**.
 
     We also believe that every bottle of wine is opened during **an unique moment**, and that wine is far
     more **enjoyable** when it is picked **accordingly to the occasion**.
 
     Thanks to Machine Learning techniques, **WineTeller**🍷🥂 is able to accurately pair **wine characteristics** (*is it bitter or smooth ?*) with
-    the **tone** of an occasion (*are you home alone or hanging out with your friends ?*)
+    the **tone** of an occasion (*are you home alone or hanging out with your friends ?*).
    """)
 
 
