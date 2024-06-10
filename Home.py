@@ -35,7 +35,7 @@ standard_page_widgets()
 #st.sidebar.markdown("# <font color='grey'>  Hello 👋 </font>",unsafe_allow_html=True)
 st.sidebar.markdown("# Pairing wine with moment 🍾")
 st.markdown("""
-    # Hello, fellow wine lover 👋
+    # Hello, fellow wine lovers 👋
 
     ##### WineTeller🍷🥂 helps you find the right bottle of wine for your special occasion.
 
