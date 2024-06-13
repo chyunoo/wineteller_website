@@ -1,13 +1,10 @@
 import streamlit as st
-from page_config import standard_page_widgets
-import requests
 import pandas as pd
 import time
 from utils.plot_wine import *
 data = pd.read_csv('/Users/hyunoochang/code/chyunoo/wineteller/wineteller_website/utils/scored_data.csv', index_col=0)
 
 # Add this on top of any page to make mpa-config work!
-standard_page_widgets()
 
 st.sidebar.markdown("# The magic starts here 🪄")
 
