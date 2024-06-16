@@ -37,7 +37,14 @@ with col2:
             st.session_state.processed_input = processed_input
             filtered_wine = filter_wine(data, processed_input)
             st.session_state.wine = filtered_wine
-            st.page_link("pages/Your_wine.py", label="Your wines are ready !")
+
+            if 'wine' in st.session_state and 'processed_input' in st.session_state :
+                #wine = st.session_state.wine
+                #processed_input = st.session_state.processed_input
+                your_wine = pair_wine(data, filtered_wine, processed_input)
+                print(your_wine)
+                st.session_state.your_wine = your_wine
+                st.page_link("pages/Your_wine.py", label="Your wines are ready !")
 with col3:
     st.header("")
 

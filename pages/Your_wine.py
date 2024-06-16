@@ -2,7 +2,7 @@ import streamlit as st
 from utils.plot_wine import *
 
 
-data = pd.read_csv('/Users/hyunoochang/code/chyunoo/wineteller/wineteller_website/utils/scored_data.csv', index_col=0)
+#data = pd.read_csv('/Users/hyunoochang/code/chyunoo/wineteller/wineteller_website/utils/scored_data.csv', index_col=0)
 
 # Inject custom CSS to reduce tab container size
 st.markdown(
@@ -16,12 +16,9 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+if 'your_wine' in st.session_state :
+    your_wine = st.session_state.your_wine
 
-if 'wine' in st.session_state and 'processed_input' in st.session_state :
-    wine = st.session_state.wine
-    processed_input = st.session_state.processed_input
-    your_wine = pair_wine(data, wine, processed_input)
-    print(your_wine)
 
 tab1, tab2, tab3, tab4 = st.tabs(["Wine 1", "Wine 2", "Wine 3", "Wine 4"])
 
