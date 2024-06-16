@@ -49,13 +49,15 @@ def make_spider(gs, n,c, data, title, color):
     angles += angles[:1]
     # Initialise the spider plot
     ax = plt.subplot(gs[n,c], polar=True,)
+    # Standalone radar
+    #ax = gs.add_subplot(1,1,1, polar=True,)
 
     # If you want the first axis to be on top:
     ax.set_theta_offset(pi / 2)
     ax.set_theta_direction(-1)
 
     # Draw one axe per variable + add labels labels yet
-    plt.xticks(angles[:-1], categories, color='grey', size=11)
+    plt.xticks(angles[:-1], categories, color='grey', size=10)
 
     # Draw ylabels
     ax.set_rlabel_position(0)
@@ -70,11 +72,15 @@ def make_spider(gs, n,c, data, title, color):
 
 def plot_wine_recommendations(pairing_wines, pairing_occasion_attributes, pairing_description):
     print(f'{pairing_wines=}')
-    subplot_rows = 2
+    subplot_rows = 1 #2 if descriptions
     subplot_columns = len(pairing_wines)
-    fig = plt.figure(figsize=(10, 5), dpi=300)
+    fig = plt.figure(figsize=(12, 5), dpi=300, frameon=False)
 
-    gs = gridspec.GridSpec(subplot_rows, subplot_columns, height_ratios=[3, 1])
+    gs = gridspec.GridSpec(
+        subplot_rows,
+        subplot_columns,
+        #height_ratios=[3, 1] #if descriptions
+        )
 
     n = 0
     r = 1
@@ -82,7 +88,8 @@ def plot_wine_recommendations(pairing_wines, pairing_occasion_attributes, pairin
 
     for w in range(len(pairing_wines)):
         make_spider(gs, n,c, pairing_occasion_attributes[w], pairing_wines[w], 'red')
-        create_text(gs, r,c,pairing_description[w])
+        # Embed descriptions in figure
+        #create_text(gs, r,c,pairing_description[w])
         c += 1
     return fig
 
@@ -160,5 +167,9 @@ def pair_wine(data, filtered, input_occasion) :
     countries = list(data.loc[pairing_id, ["country"]].country)
     all_description = [[pairing_description[i],descriptors[i], varieties[i], provinces[i], countries[i]] for i in range(len(descriptors))]
 
-    recommendation = plot_wine_recommendations([pairing_id[0]], [pairing_occasion_attributes[0]], [all_description[0]])
+    #recommendation = plot_wine_recommendations([pairing_id[0]], [pairing_occasion_attributes[0]], [all_description[0]])
+    recommendation = [pairing_id, pairing_occasion_attributes, all_description]
     return recommendation
+
+def plot_wine_tab() :
+    pass
