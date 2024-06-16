@@ -57,7 +57,7 @@ def make_spider(gs, n,c, data, title, color):
     ax.set_theta_direction(-1)
 
     # Draw one axe per variable + add labels labels yet
-    plt.xticks(angles[:-1], categories, color='grey', size=10)
+    plt.xticks(angles[:-1], categories, color='grey', size=12)
 
     # Draw ylabels
     ax.set_rlabel_position(0)
