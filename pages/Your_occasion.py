@@ -2,7 +2,24 @@ import streamlit as st
 import pandas as pd
 import time
 from utils.plot_wine import *
-data = pd.read_csv('/Users/hyunoochang/code/chyunoo/wineteller/wineteller_website/utils/scored_data.csv', index_col=0)
+dtype_dict = {
+    'country': 'category',
+    'province': 'category',
+    'variety': 'category',
+    'romantic_sc' : 'float32',
+    'fancy_sc' : 'float32',
+    'moody_sc' : 'float32',
+    'casual_sc' : 'float32',
+    'avg_sc' : 'float32',
+    'romantic_sc_norm' : 'uint8',
+    'fancy_sc_norm' : 'uint8',
+    'casual_sc_norm' : 'uint8',
+    'moody_sc_norm' : 'uint8'
+}
+data = pd.read_csv('/Users/hyunoochang/code/chyunoo/wineteller/wineteller_website/utils/scored_data.csv',
+                   index_col=0,
+                   dtype=dtype_dict
+                   )
 
 st.sidebar.markdown("# The magic starts here 🪄")
 
