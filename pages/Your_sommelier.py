@@ -6,3 +6,5 @@ import pandas as pd
 
 if 'occasion' in st.session_state :
     st.write(st.session_state.occasion)
+
+"I am a future feature 🥷"
