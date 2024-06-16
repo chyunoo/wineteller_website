@@ -12,6 +12,6 @@ data = pd.read_csv('/Users/hyunoochang/code/chyunoo/wineteller/wineteller_websit
 if 'wine' in st.session_state and 'processed_input' in st.session_state :
     wine = st.session_state.wine
     processed_input = st.session_state.processed_input
-    recommendation = pair_wine(data, wine, processed_input)
+    your_wine = pair_wine(data, wine, processed_input)
 
-st.pyplot(fig=recommendation, clear_figure=False)
+st.pyplot(fig=your_wine, clear_figure=False)

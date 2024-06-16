@@ -9,27 +9,36 @@ import pandas as pd
 
 import random
 
-def create_text(gs, n, pairing_description):
-    ax = plt.subplot(gs[n])
-    ax_h, ax_w = ax.bbox.height/72, ax.bbox.width/72
+def create_text(gs, r,c, description):
+    ax = plt.subplot(gs[r,c])
+    text_content = ""
 
+    for i in range(len(description)) :
+        main_description = description[i]
+         # Manually break the text into multiple lines
+        lines = textwrap.wrap(main_description)
+        # Join the lines with newline characters
+        wrapped_text = '\n'.join(lines)
+        text_content += f"{wrapped_text} \n"
     ax.set_xticks([])
     ax.set_yticks([])
     for spine in ax.spines.values():
         spine.set_visible(False)
     ax.invert_yaxis()
 
-    # Manually break the text into multiple lines
-    lines = textwrap.wrap(pairing_description)
+    ax.text(x=0.5,
+            y=-0.25,
+            s=text_content,
+            fontsize=12,
+            color='grey',
+            horizontalalignment='center',
+            verticalalignment='center',
+            bbox=dict(facecolor='white', alpha=0.5),
+            transform=ax.transAxes)
 
-    # Join the lines with newline characters
-    wrapped_text = '\n'.join(lines)
 
-    # Display the wrapped text vertically
-    text = f'Wine full description:\n\n{wrapped_text}'
-    ax.text(x=0, y=1, s=text, fontsize=12, color='grey')
 
-def make_spider(gs, n, data, title, color):
+def make_spider(gs, n,c, data, title, color):
 
     occasion_attributes = {'romantic': '', 'moody': '', 'casual': '', 'fancy': ''}
     # number of variable
@@ -39,7 +48,7 @@ def make_spider(gs, n, data, title, color):
     angles = [n / float(N) * 2 * pi for n in range(N)]
     angles += angles[:1]
     # Initialise the spider plot
-    ax = plt.subplot(gs[n], polar=True,)
+    ax = plt.subplot(gs[n,c], polar=True,)
 
     # If you want the first axis to be on top:
     ax.set_theta_offset(pi / 2)
@@ -59,42 +68,22 @@ def make_spider(gs, n, data, title, color):
     ax.plot(angles, values, color=color, linewidth=2, linestyle='solid')
     ax.fill(angles, values, color=color, alpha=0.4)
 
-    # Add a title
-    # Insert a line break in the title if needed
-    title_split = str(title).split(',')
-    new_title = []
-    for number, word in enumerate(title_split):
-        if (number % 2) == 0 and number > 0:
-            updated_word = '\n' + word.strip()
-            new_title.append(updated_word)
-        else:
-            updated_word = word.strip()
-            new_title.append(updated_word)
-    new_title = ', '.join(new_title)
-
-    title_incl_pairing_type = new_title
-
-    plt.title(title_incl_pairing_type, size=13, color='black', y=1.2)
-
 def plot_wine_recommendations(pairing_wines, pairing_occasion_attributes, pairing_description):
-
-    subplot_rows = 3
+    print(f'{pairing_wines=}')
+    subplot_rows = 2
     subplot_columns = len(pairing_wines)
-    fig = plt.figure(figsize=(30, 7), dpi=96)
-    fig_height, fig_width = fig.get_size_inches()
+    fig = plt.figure(figsize=(10, 5), dpi=300)
 
-    gs = gridspec.GridSpec(subplot_rows, subplot_columns, height_ratios=[3, 0.5, 1])
+    gs = gridspec.GridSpec(subplot_rows, subplot_columns, height_ratios=[3, 1])
 
-    spider_nr = 0
-    number_line_nr = 4
-    descriptor_nr = 8
+    n = 0
+    r = 1
+    c = 0
 
     for w in range(len(pairing_wines)):
-        make_spider(gs, spider_nr, pairing_occasion_attributes[w], pairing_wines[w], 'red')
-        create_text(gs, descriptor_nr, pairing_description[w])
-        spider_nr += 1
-        number_line_nr += 1
-        descriptor_nr += 1
+        make_spider(gs, n,c, pairing_occasion_attributes[w], pairing_wines[w], 'red')
+        create_text(gs, r,c,pairing_description[w])
+        c += 1
     return fig
 
 
@@ -165,5 +154,11 @@ def pair_wine(data, filtered, input_occasion) :
     print(pairing_occasion_attributes)
     pairing_description = list(data.loc[pairing_id, ["description"]].description)
     print(occasion_scores)
+    descriptors = list(data.loc[pairing_id, ["normalized_descriptors"]].normalized_descriptors)
+    varieties = list(data.loc[pairing_id, ["variety"]].variety)
+    provinces = list(data.loc[pairing_id, ["province"]].province)
+    countries = list(data.loc[pairing_id, ["country"]].country)
+    all_description = [[pairing_description[i],descriptors[i], varieties[i], provinces[i], countries[i]] for i in range(len(descriptors))]
 
-    plot_wine_recommendations(pairing_id, pairing_occasion_attributes, pairing_description)
+    recommendation = plot_wine_recommendations([pairing_id[0]], [pairing_occasion_attributes[0]], [all_description[0]])
+    return recommendation
