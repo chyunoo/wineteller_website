@@ -1,37 +1,6 @@
 import streamlit as st
-
-# Add this on top of any page to make mpa-config work!
-
-# st.set_page_config(
-#     page_title="Wineteller",
-#     page_icon="🍷🥂",
-#     layout="centered",
-#     initial_sidebar_state="expanded")
-
-# def add_bg_from_local(image_file):
-#     with open(image_file, "rb") as image_file:
-#         encoded_string = base64.b64encode(image_file.read())
-#     st.markdown(
-#     f"""
-#     <style>
-#     .stApp {{
-#         background-image: url(data:image/{"png"};base64,{encoded_string.decode()});
-#         background-size: cover
-#     }}
-#     </style>
-#     """,
-#     unsafe_allow_html=True
-#     )
-#add_bg_from_local('/Users/hyunoochang/Downloads/wineteller2.jpg')
-
-#title = st.text_input('What occasion ?', )
-
-# st.sidebar.markdown(f"""
-#     # Header resizer
-#     """)
-
-#st.sidebar.markdown("# <font color='grey'>  Hello 👋 </font>",unsafe_allow_html=True)
-st.sidebar.markdown("# Pairing wine with moment 🍾")
+st.logo("/Users/hyunoochang/code/chyunoo/wineteller/wineteller_website/utils/wineteller_logo_v1.png")
+st.set_page_config(initial_sidebar_state="auto")
 st.markdown("""
     # Hello, fellow wine lovers 👋
 

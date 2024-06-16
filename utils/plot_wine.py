@@ -1,10 +1,8 @@
 import textwrap
-from scipy import spatial
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import gridspec
 from math import pi
-import pandas as pd
 
 
 import random
