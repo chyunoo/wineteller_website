@@ -4,3 +4,4 @@ setup.sh
 setup.py
 Procfile
 MANIFEST.in
+secrets.toml
