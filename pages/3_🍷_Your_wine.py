@@ -28,8 +28,8 @@ with tab1:
 
    st.pyplot(fig=your_wine_plot, clear_figure=False)
 
-   st.write(f"variety : {your_wine_description[2]}")
-   st.write(f"keywords : {your_wine_description[1][1:-1]}")
+   st.write(f"🍇 : {your_wine_description[2]}")
+   st.write(f"🔑words : {your_wine_description[1][1:-1]}")
 
    with st.expander("Description"):
         st.write(your_wine_description[0])
