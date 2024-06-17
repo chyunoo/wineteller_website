@@ -1,6 +1,7 @@
 import streamlit as st
 from PIL import Image
 from google.cloud import storage
+from google.oauth2 import service_account
 import io
 
 st.set_page_config(initial_sidebar_state="auto")
