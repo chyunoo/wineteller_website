@@ -7,7 +7,10 @@ st.set_page_config(initial_sidebar_state="auto")
 
 @st.cache_data
 def fetch_image_from_gcs(bucket_name, file_path):
-    bucket = storage.Client().bucket(bucket_name)
+    credentials = service_account.Credentials.from_service_account_info(st.secrets["gcs"])
+    # Create a client using the specified credentials
+    client = storage.Client(credentials=credentials)
+    bucket = client.bucket(bucket_name)
     blob = bucket.blob(file_path)
     image_data = blob.download_as_bytes()
     return image_data
