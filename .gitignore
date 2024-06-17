@@ -1,2 +1,6 @@
 .DS_Store
 **/__pycache__/
+setup.sh
+setup.py
+Procfile
+MANIFEST.in
