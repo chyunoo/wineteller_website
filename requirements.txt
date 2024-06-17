@@ -2,3 +2,6 @@ streamlit==1.35.0
 pandas
 gcsfs
 st-files-connection
+PIL 
+io
+google.cloud
