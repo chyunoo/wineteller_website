@@ -1,7 +1,24 @@
 import streamlit as st
 from utils.plot_wine import *
-st.logo("/Users/hyunoochang/code/chyunoo/wineteller/wineteller_website/utils/wineteller_logo_v1.png")
+from st_files_connection import FilesConnection
+from PIL import Image
+from google.cloud import storage
+import io
 st.set_page_config(initial_sidebar_state="collapsed")
+@st.cache_data
+def fetch_image_from_gcs(bucket_name, file_path):
+    bucket = storage.Client().bucket(bucket_name)
+    blob = bucket.blob(file_path)
+    image_data = blob.download_as_bytes()
+    return image_data
+
+# Fetch image data from GCS
+logo_data = fetch_image_from_gcs("scored_data_1706", "wineteller_logo_v1.png")
+
+# Convert binary data to PIL Image
+logo = Image.open(io.BytesIO(logo_data))
+st.logo(logo)
+
 
 # Inject custom CSS to reduce tab container size
 st.markdown(
@@ -40,8 +57,8 @@ with tab2:
    st.subheader(f"{your_wine_description[-2]}, {your_wine_description[-1]}")
    st.pyplot(fig=your_wine_plot, clear_figure=False,use_container_width=True)
 
-   st.write(f"variety : {your_wine_description[2]}")
-   st.write(f"keywords : {your_wine_description[1][1:-1]}")
+   st.write(f"🍇 : {your_wine_description[2]}")
+   st.write(f"🔑words : {your_wine_description[1][1:-1]}")
 
    with st.expander("Description"):
         st.write(your_wine_description[0])
@@ -52,8 +69,8 @@ with tab3:
    st.subheader(f"{your_wine_description[-2]}, {your_wine_description[-1]}")
    st.pyplot(fig=your_wine_plot, clear_figure=False)
 
-   st.write(f"variety : {your_wine_description[2]}")
-   st.write(f"keywords : {your_wine_description[1][1:-1]}")
+   st.write(f"🍇 : {your_wine_description[2]}")
+   st.write(f"🔑words : {your_wine_description[1][1:-1]}")
 
    with st.expander("Description"):
         st.write(your_wine_description[0])
@@ -64,8 +81,8 @@ with tab4:
    st.subheader(f"{your_wine_description[-2]}, {your_wine_description[-1]}")
    st.pyplot(fig=your_wine_plot, clear_figure=False)
 
-   st.write(f"variety : {your_wine_description[2]}")
-   st.write(f"keywords : {your_wine_description[1][1:-1]}")
+   st.write(f"🍇 : {your_wine_description[2]}")
+   st.write(f"🔑words : {your_wine_description[1][1:-1]}")
 
    with st.expander("Description"):
         st.write(your_wine_description[0])
