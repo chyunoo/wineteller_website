@@ -4,3 +4,4 @@ gcsfs
 st-files-connection
 Pillow==10.3.0
 google.cloud
+google.oauth2

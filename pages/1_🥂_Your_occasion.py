@@ -4,16 +4,20 @@ from utils.plot_wine import *
 from st_files_connection import FilesConnection
 from PIL import Image
 from google.cloud import storage
+from google.oauth2 import service_account
 import io
 
 st.set_page_config(initial_sidebar_state="collapsed")
 
 conn = st.connection('gcs', type=FilesConnection)
 data = conn.read("scored_data_1706/scored_data.csv", input_format="csv", ttl=600)
-
+credentials = st.secrets["connections.gcs"]
 @st.cache_data
 def fetch_image_from_gcs(bucket_name, file_path):
-    bucket = storage.Client().bucket(bucket_name)
+    credentials = service_account.Credentials.from_service_account_file(credentials)
+    # Create a client using the specified credentials
+    client = storage.Client(credentials=credentials)
+    bucket = client.bucket(bucket_name)
     blob = bucket.blob(file_path)
     image_data = blob.download_as_bytes()
     return image_data
