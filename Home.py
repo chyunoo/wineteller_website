@@ -41,4 +41,4 @@ st.write("--")
 founder = '[Hyunoo](https://github.com/chyunoo)'
 cofounder = '[Clément](https://github.com/ponpon32)'
 
-st.caption(f" Kindly brought to you by {founder} and {cofounder}")
+st.caption(f" Born with {founder} and {cofounder}, raised by {founder}")
