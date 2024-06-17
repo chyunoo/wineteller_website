@@ -7,7 +7,7 @@ import io
 
 st.set_page_config(initial_sidebar_state="collapsed")
 
-credentials = st.secrets["connections.gcs"]
+credentials = st.secrets["gcs"]
 @st.cache_data
 def fetch_image_from_gcs(bucket_name, file_path):
     credentials = service_account.Credentials.from_service_account_file(credentials)
