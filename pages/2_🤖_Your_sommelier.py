@@ -7,10 +7,9 @@ import io
 
 st.set_page_config(initial_sidebar_state="collapsed")
 
-credentials = st.secrets["gcs"]
 @st.cache_data
 def fetch_image_from_gcs(bucket_name, file_path):
-    credentials = service_account.Credentials.from_service_account_file(credentials)
+    credentials = service_account.Credentials.from_service_account_file(st.secrets["gcs"])
     # Create a client using the specified credentials
     client = storage.Client(credentials=credentials)
     bucket = client.bucket(bucket_name)
