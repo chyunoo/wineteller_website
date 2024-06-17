@@ -31,7 +31,7 @@ def create_text(gs, r,c, description):
             bbox=dict(facecolor='white', alpha=0.5),
             transform=ax.transAxes)
 
-def make_spider(gs, n,c, data, color):
+def make_spider(gs, n,c, data, title, color):
     occasion_attributes = {'romantic': '', 'moody': '', 'casual': '', 'fancy': ''}
     # number of variable
     categories = list(occasion_attributes.keys())

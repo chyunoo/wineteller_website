@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-from st_files_connection import FilesConnection
 from PIL import Image
 from google.cloud import storage
 import io

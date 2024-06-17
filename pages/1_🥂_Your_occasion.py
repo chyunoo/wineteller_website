@@ -59,7 +59,6 @@ with col2:
 
             if 'wine' in st.session_state and 'processed_input' in st.session_state :
                 your_wine = pair_wine(data, filtered_wine, processed_input)
-                print(your_wine)
                 st.session_state.your_wine = your_wine
                 st.page_link("pages/3_🍷_Your_wine.py", label="Your wines are ready !")
 with col3:
