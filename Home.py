@@ -24,15 +24,15 @@ st.logo(logo)
 st.markdown("""
     # Hello, wine lover 👋
 
-    ### Wineteller helps you find the right bottle of wine for your special occasion.
+    ### **<span style="color:#5f1c22">Wineteller</span>** helps you find the right bottle of wine for your special occasion.
 
     We are the kind of people who believes that anyone should be able to find the right wine.
 
     We also believe that every bottle of wine is opened during an unique moment that shapes its enjoyability.
 
-    **Wineteller** uses data science to pair wine characteristics  with
+    **<span style="color:#5f1c22">Wineteller</span>** uses data science to pair wine characteristics  with
     the tone of an occasion.
-   """)
+   """, unsafe_allow_html=True)
 
 
 st.write("--")
