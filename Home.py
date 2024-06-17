@@ -1,39 +1,35 @@
 import streamlit as st
 st.logo("/Users/hyunoochang/code/chyunoo/wineteller/wineteller_website/utils/wineteller_logo_v1.png")
 st.set_page_config(initial_sidebar_state="auto")
+
 st.markdown("""
-    # Hello, fellow wine lovers 👋
+    # Hello, wine lover 👋
 
-    ##### WineTeller🍷🥂 helps you find the right bottle of wine for your special occasion.
+    ### Wineteller helps you find the right bottle of wine for your special occasion.
 
-    We are the kind of people who believes that there are no **general guideline** for picking a decent bottle of wine and
-    that anyone, **regardless of their knowledge** of wine, should be able to find a bottle that they will **trully appreciate**.
+    We are the kind of people who believes that anyone should be able to find the right wine.
 
-    We also believe that every bottle of wine is opened during **an unique moment**, and that wine is far
-    more **enjoyable** when it is picked **accordingly to the occasion**.
+    We also believe that every bottle of wine is opened during an unique moment that shapes its enjoyability.
 
-    Thanks to Machine Learning techniques, **WineTeller**🍷🥂 is able to accurately pair **wine characteristics** (*is it bitter or smooth ?*) with
-    the **tone** of an occasion (*are you home alone or hanging out with your friends ?*)
+    **Wineteller** uses data science to pair wine characteristics  with
+    the tone of an occasion.
    """)
 
 
 st.write("--")
+your_occasion_page = "[Your occasion](pages/Your_occasion.py)"
+your_wine_page = "[Your wine](pages/Your_wine.py)"
+st.markdown(f"""
+    ### Wanna try it ?
 
-st.markdown("""
-    Wanna try it ?
+    - Describe your occasion 👉 🥂 Your occasion
 
-    - **Type** the occasion you are about to encounter 👉 🥂 **Your occasion**, wait until the search is done 🤖
+    - Find your wine recommendation 👉 🍷 Your wine
 
-    - Then check your **wine recommendation** 👉 🍷 **Your wine**
-
-    - Enjoy your wine 😋
-
-    - If you have any enquiries about data or wine, feel free to say hi to 👉 🤖 **Your sommelier**
+    - Enjoy your moment 🍷🥂
 
     """)
 st.write("")
-
-st.write("Cheers ! 😎")
 
 st.write("--")
 
