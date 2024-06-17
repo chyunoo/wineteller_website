@@ -4,9 +4,6 @@ import matplotlib.pyplot as plt
 from matplotlib import gridspec
 from math import pi
 
-
-import random
-
 def create_text(gs, r,c, description):
     ax = plt.subplot(gs[r,c])
     text_content = ""
@@ -34,10 +31,7 @@ def create_text(gs, r,c, description):
             bbox=dict(facecolor='white', alpha=0.5),
             transform=ax.transAxes)
 
-
-
-def make_spider(gs, n,c, data, title, color):
-
+def make_spider(gs, n,c, data, color):
     occasion_attributes = {'romantic': '', 'moody': '', 'casual': '', 'fancy': ''}
     # number of variable
     categories = list(occasion_attributes.keys())
@@ -47,21 +41,15 @@ def make_spider(gs, n,c, data, title, color):
     angles += angles[:1]
     # Initialise the spider plot
     ax = plt.subplot(gs[n,c], polar=True,)
-    # Standalone radar
-    #ax = gs.add_subplot(1,1,1, polar=True,)
-
     # If you want the first axis to be on top:
     ax.set_theta_offset(pi / 2)
     ax.set_theta_direction(-1)
-
     # Draw one axe per variable + add labels labels yet
     plt.xticks(angles[:-1], categories, color='grey', size=12)
-
     # Draw ylabels
     ax.set_rlabel_position(0)
     plt.yticks([0.25, 0.5, 0.75, 1.0], ["0.25","0.50","0.75", "1.00"], color="grey", size=0)
     plt.ylim(0, 1)
-
     # Ind1
     values = list(data.values())
     values += values[:1]
@@ -69,15 +57,13 @@ def make_spider(gs, n,c, data, title, color):
     ax.fill(angles, values, color=color, alpha=0.4)
 
 def plot_wine_recommendations(pairing_wines, pairing_occasion_attributes, pairing_description):
-    print(f'{pairing_wines=}')
-    subplot_rows = 1 #2 if descriptions
+    subplot_rows = 1
     subplot_columns = len(pairing_wines)
-    fig = plt.figure(figsize=(12, 5), dpi=300, frameon=False)
 
+    fig = plt.figure(figsize=(12, 5), dpi=300, frameon=False)
     gs = gridspec.GridSpec(
         subplot_rows,
-        subplot_columns,
-        #height_ratios=[3, 1] #if descriptions
+        subplot_columns
         )
 
     n = 0
@@ -86,14 +72,11 @@ def plot_wine_recommendations(pairing_wines, pairing_occasion_attributes, pairin
 
     for w in range(len(pairing_wines)):
         make_spider(gs, n,c, pairing_occasion_attributes[w], pairing_wines[w], 'red')
-        # Embed descriptions in figure
-        #create_text(gs, r,c,pairing_description[w])
         c += 1
     return fig
 
 
 def process_input(occasion) :
-    #random_input = [random.randint(1, 4) for i in range(4)]
     input_occasion = dict()
     input_labels = ["romantic_input", "moody_input", "casual_input", "fancy_input"]
     for i,j  in zip(input_labels, occasion) :
@@ -102,7 +85,6 @@ def process_input(occasion) :
     input_occasion["moody_sc_norm"] = input_occasion.pop('moody_input')
     input_occasion["fancy_sc_norm"] = input_occasion.pop('fancy_input')
     input_occasion["casual_sc_norm"] = input_occasion.pop('casual_input')
-    print(input_occasion)
     return(input_occasion)
 
 def filter_wine(data, input_occasion) :
@@ -110,7 +92,6 @@ def filter_wine(data, input_occasion) :
              (data["moody_sc_norm"] == input_occasion["moody_sc_norm"]) &
             (data["fancy_sc_norm"] == input_occasion["fancy_sc_norm"]) &
             (data["casual_sc_norm"] == input_occasion["casual_sc_norm"])]
-    print(filtered.shape)
     return(filtered)
 
 def pair_wine(data, filtered, input_occasion) :
@@ -118,7 +99,6 @@ def pair_wine(data, filtered, input_occasion) :
         final_selection = filtered.sample(4)
     except ValueError :
         if len(filtered) == 0 :
-            print("no wine matched found, using average of input")
             input_occasion_values = [i for i in input_occasion.values()]
             input_average = np.mean(input_occasion_values)
             # Input value
@@ -156,18 +136,11 @@ def pair_wine(data, filtered, input_occasion) :
     pairing_id = list(final_selection.index)
     occasion_scores = data.loc[pairing_id, ["romantic_sc", "moody_sc", "casual_sc", "fancy_sc"]]
     pairing_occasion_attributes = occasion_scores[["romantic_sc", "moody_sc", "casual_sc", "fancy_sc"]].to_dict('records')
-    print(pairing_occasion_attributes)
     pairing_description = list(data.loc[pairing_id, ["description"]].description)
-    print(occasion_scores)
     descriptors = list(data.loc[pairing_id, ["normalized_descriptors"]].normalized_descriptors)
     varieties = list(data.loc[pairing_id, ["variety"]].variety)
     provinces = list(data.loc[pairing_id, ["province"]].province)
     countries = list(data.loc[pairing_id, ["country"]].country)
     all_description = [[pairing_description[i],descriptors[i], varieties[i], provinces[i], countries[i]] for i in range(len(descriptors))]
-
-    #recommendation = plot_wine_recommendations([pairing_id[0]], [pairing_occasion_attributes[0]], [all_description[0]])
     recommendation = [pairing_id, pairing_occasion_attributes, all_description]
     return recommendation
-
-def plot_wine_tab() :
-    pass
