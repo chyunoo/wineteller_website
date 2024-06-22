@@ -27,7 +27,7 @@ st.markdown(
     """
     <style>
     .stTabs {
-        max-width: 50%; /* Adjust the maximum width of the tab container */
+        max-width: 60%; /* Adjust the maximum width of the tab container */
         font-size: 14px; /* Adjust the font size of the tab labels */
     }
     </style>
