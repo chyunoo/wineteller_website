@@ -115,17 +115,25 @@ def pair_wine(data, filtered, input_occasion) :
             sorted_items = sorted(input_occasion.items(), key=lambda x: x[1], reverse=True)
             max_value = sorted_items[0][1]
             # Check if there are multiple maximum values
-            multiple_max_values = [key for key, value in sorted_items if value == max_value]
-            # If there are multiple maximum values, return the default key
-            if len(multiple_max_values) > 1:
-                max_pair = (default_key, max_value)
+            multiple_max_keys = [key for key, value in sorted_items if value == max_value]
+            multiple_max_values = [value for key, value in sorted_items if value == max_value]
+            # If there are multiple maximum values and of high intensity, filter based on average max
+            if len(multiple_max_values) > 1 and max_value == 4 :
+                max_pair = (multiple_max_keys[0], multiple_max_keys[1])
+                indices = [i.index("sc") for i in max_pair]
+                input_highest_sc = [max_pair[i][:indices[i]+2] for i in range(len(indices))]
+                closest_rows["avg_max"] = closest_rows[[f'{input_highest_sc[0]}',f'{input_highest_sc[1]}']].mean(axis=1)
+                final_selection = closest_rows.sort_values("avg_max", ascending=False)[:4]
+            # Else shuffle
+            elif len(multiple_max_values) > 1 and max_value < 4 :
+                final_selection = closest_rows.sample(4)
+            # Else filter based on highest sc
             else:
                 max_pair = sorted_items[0]
-            # Slice the string up to the index of the special character
-            input_highest_sc = max_pair[0]
-            index = input_highest_sc.index("sc")
-            input_highest_sc = input_highest_sc[:index+2]
-            final_selection = closest_rows.sort_values(input_highest_sc, ascending=False)[:4]
+                input_highest_sc = max_pair[0]
+                index = input_highest_sc.index("sc")
+                input_highest_sc = input_highest_sc[:index+2]
+                final_selection = closest_rows.sort_values(input_highest_sc, ascending=False)[:4]
         else :
             final_selection = filtered
 
@@ -135,6 +143,7 @@ def pair_wine(data, filtered, input_occasion) :
 
     pairing_id = list(final_selection.index)
     occasion_scores = data.loc[pairing_id, ["romantic_sc", "moody_sc", "casual_sc", "fancy_sc"]]
+    print(occasion_scores)
     pairing_occasion_attributes = occasion_scores[["romantic_sc", "moody_sc", "casual_sc", "fancy_sc"]].to_dict('records')
     pairing_description = list(data.loc[pairing_id, ["description"]].description)
     descriptors = list(data.loc[pairing_id, ["normalized_descriptors"]].normalized_descriptors)
