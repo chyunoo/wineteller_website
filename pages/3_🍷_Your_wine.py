@@ -50,7 +50,10 @@ with tab1:
         st.write(f"🔑words : {your_wine_description[1][1:-1]}")
 
         with st.expander("Description"):
-            st.write(your_wine_description[0])
+            if len(your_wine_description[0]) > 0 :
+                st.write(your_wine_description[0])
+            else :
+                st.write("🤖 : error_can't_find_description")
     except NameError :
         st.write("🤖 : error_can't_find_occasion")
 
@@ -65,7 +68,10 @@ with tab2:
         st.write(f"🔑words : {your_wine_description[1][1:-1]}")
 
         with st.expander("Description"):
-             st.write(your_wine_description[0])
+            if len(your_wine_description[0]) > 0 :
+                st.write(your_wine_description[0])
+            else :
+                st.write("🤖 : error_can't_find_description")
     except NameError :
         st.write("🤖 : error_can't_find_occasion")
 
@@ -80,9 +86,14 @@ with tab3:
         st.write(f"🔑words : {your_wine_description[1][1:-1]}")
 
         with st.expander("Description"):
-             st.write(your_wine_description[0])
+            if len(your_wine_description[0]) > 0 :
+                st.write(your_wine_description[0])
+            else :
+                st.write("🤖 : error_can't_find_description")
     except NameError :
         st.write("🤖 : error_can't_find_occasion")
+    except IndexError :
+        st.write("🤖 : error_can't_find_more_wines")
 
 with tab4:
     try:
@@ -95,6 +106,11 @@ with tab4:
         st.write(f"🔑words : {your_wine_description[1][1:-1]}")
 
         with st.expander("Description"):
-             st.write(your_wine_description[0])
+            if len(your_wine_description[0]) > 0 :
+                st.write(your_wine_description[0])
+            else :
+                st.write("🤖 : error_can't_find_description")
     except NameError :
         st.write("🤖 : error_can't_find_occasion")
+    except IndexError :
+        st.write("🤖 : error_can't_find_more_wines")
