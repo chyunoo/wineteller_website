@@ -99,8 +99,8 @@ def pair_wine_helper(multiple_max_keys, multiple_max_values,max_value) :
         # Return a tuple of len = 2
         final_pair = (multiple_max_keys[0], multiple_max_keys[1])
     elif len(multiple_max_values) > 1 and max_value < 4 :
-        # Return a list of len = 4
-        final_pair = [{multiple_max_keys[i] : multiple_max_values[i]} for i in range(len(multiple_max_keys))]
+        # Return a list of len = 0
+        final_pair = []
     else :
         # Return a list of len = 1
         final_pair = multiple_max_keys
@@ -108,7 +108,6 @@ def pair_wine_helper(multiple_max_keys, multiple_max_values,max_value) :
 
 def pair_wine(data, filtered, input_occasion) :
     try :
-        final_pair = ""
         final_selection = filtered.sample(4)
     except ValueError :
         if len(filtered) == 0 :
@@ -123,7 +122,6 @@ def pair_wine(data, filtered, input_occasion) :
             closest_row = data.loc[data['abs_diff'].idxmin()]
             # Filter the DataFrame for the closest row(s)
             closest_rows = data[data['abs_diff'] == closest_row['abs_diff']]
-            default_key = 'casual_sc'
             # Sort the dictionary items based on values
             sorted_items = sorted(input_occasion.items(), key=lambda x: x[1], reverse=True)
             max_value = sorted_items[0][1]
@@ -138,6 +136,7 @@ def pair_wine(data, filtered, input_occasion) :
                 input_highest_sc = [max_pair[i][:indices[i]+2] for i in range(len(indices))]
                 closest_rows["avg_max"] = closest_rows[[f'{input_highest_sc[0]}',f'{input_highest_sc[1]}']].mean(axis=1)
                 final_selection = closest_rows.sort_values("avg_max", ascending=False)[:4]
+                avg_final_selection = round(final_selection["avg_max"].mean(),2)
             # Else shuffle
             elif len(multiple_max_values) > 1 and max_value < 4 :
                 final_pair = pair_wine_helper(multiple_max_keys, multiple_max_values,max_value)
@@ -150,8 +149,8 @@ def pair_wine(data, filtered, input_occasion) :
                 index = input_highest_sc.index("sc")
                 input_highest_sc = input_highest_sc[:index+2]
                 final_selection = closest_rows.sort_values(input_highest_sc, ascending=False)[:4]
+                avg_final_selection = round(final_selection[input_highest_sc].mean(),2)
         else :
-            final_pair = ""
             final_selection = filtered
     desired_order_list = ["romantic", "moody", "casual", "fancy"]
     occasion_attributes = {'romantic': '', 'moody': '', 'casual': '', 'fancy': ''}
@@ -168,4 +167,13 @@ def pair_wine(data, filtered, input_occasion) :
     countries = list(data.loc[pairing_id, ["country"]].country)
     all_description = [[pairing_description[i],descriptors[i], varieties[i], provinces[i], countries[i]] for i in range(len(descriptors))]
     recommendation = [pairing_id, pairing_occasion_attributes, all_description]
-    return final_pair, recommendation
+
+    all_recommendation = ["final_pair","recommendation", "input_average", "avg_final_selection"]
+    #final_recommendation_test= [locals()[r] if r in locals() else None for r in all_recommendation]
+    final_recommendation = []
+    for r in all_recommendation :
+        if r in locals() :
+            final_recommendation.append(locals()[r])
+        else :
+            final_recommendation.append([])
+    return final_recommendation
