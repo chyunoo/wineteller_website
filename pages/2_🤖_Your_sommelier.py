@@ -25,6 +25,30 @@ st.logo(logo)
 
 #if 'occasion_input' not in st.session_state:
 #    st.write("🤖 : error_can't_find_occasion")
+def return_score_descriptors(highest_occasion) :
+    score_descriptors = {
+    "romantic" : ["flowers", "notes", "lilac", "violet_rose"],
+    "moody" : ["wood", "notes", "oak", "toasted_coconut"],
+    "casual" : ["medium_body", "style", "racy", "fruity"],
+    "fancy" : ["refined", "style", "flashy", "elegant"]
+    }
+    if len(highest_occasion) == 1 :
+        print(f"{highest_occasion[0]}")
+        index = highest_occasion[0].index("sc")
+        highest_occasion_str = highest_occasion[0][:index-1]
+        print(highest_occasion_str)
+        highest_occasion_descriptors = score_descriptors[highest_occasion_str]
+        print(highest_occasion_descriptors)
+    else :
+        print(f"{highest_occasion}")
+        indices = [i.index("sc") for i in highest_occasion]
+        highest_occasion_str = [highest_occasion[i][:indices[i]-1] for i in range(len(indices))]
+        print(highest_occasion_str)
+        print([i for i in highest_occasion_str])
+        highest_occasion_descriptors = [score_descriptors[highest_occasion_str[i]] for i in range(len(highest_occasion_str))]
+        print(highest_occasion_descriptors)
+    return highest_occasion_str, highest_occasion_descriptors
+
 
 def stream_data(text):
     for word in text.split(" "):
@@ -51,14 +75,27 @@ with st.chat_message("user", avatar="🤖"):
             """
             st.write_stream(stream_data(text))
         elif len(st.session_state.final_pair) == 1 :
-            text = f"""You requested a wine with : {occasion_input_text}
-            \nwe found {len(st.session_state.wine)} matches
-            \nsearching similar wines with same average score : {st.session_state.input_average}
-            \nreturning most similar wines with highest {st.session_state.final_pair} score : {st.session_state.avg_final_selection}
-            """
+            highest_occasion_text = return_score_descriptors(st.session_state.final_pair)
+            if highest_occasion_text[0] in ("romantic","moody") :
+                text = f"""You requested a {highest_occasion_text[0]} wine with : {occasion_input_text}
+                \n {highest_occasion_text[0]} wines are characterized by {highest_occasion_text[1][0]} {highest_occasion_text[1][1]}, like {highest_occasion_text[1][2]} or  {highest_occasion_text[1][3]}
+                \nwe found {len(st.session_state.wine)} matches
+                \nsearching similar wines with same average score : {st.session_state.input_average}
+                \nreturning most similar wines with highest {st.session_state.final_pair} score : {st.session_state.avg_final_selection}
+                """
+            else :
+               text =f"""You requested a {highest_occasion_text[0]} wine with : {occasion_input_text}
+                \n {highest_occasion_text[0]} wines are characterized by a {highest_occasion_text[1][0]} {highest_occasion_text[1][1]}, they are {highest_occasion_text[1][2]} and {highest_occasion_text[1][3]}
+                \nwe found {len(st.session_state.wine)} matches
+                \nsearching similar wines with same average score : {st.session_state.input_average}
+                \nreturning most similar wines with highest {st.session_state.final_pair} score : {st.session_state.avg_final_selection}
+               """
             st.write_stream(stream_data(text))
         elif len(st.session_state.final_pair) == 2 :
-            text = f"""You requested a wine with : {occasion_input_text}
+            highest_occasion_text = return_score_descriptors(st.session_state.final_pair)
+            text = f"""You requested a {highest_occasion_text[0][0]} and {highest_occasion_text[0][1]} wine with : {occasion_input_text}
+            \n{highest_occasion_text[0][0]} wines are characterized by {highest_occasion_text[1][0][0]} {highest_occasion_text[1][0][1]} ({highest_occasion_text[1][0][2]}, {highest_occasion_text[1][0][3]}) and
+            \n{highest_occasion_text[0][1]} wines are characterized by {highest_occasion_text[1][1][0]} {highest_occasion_text[1][1][1]} ({highest_occasion_text[1][1][2]}, {highest_occasion_text[1][1][3]})
             \nwe found {len(st.session_state.wine)} matches
             \nsearching similar wines with same average score :  {st.session_state.input_average}
             \ncalculating average {st.session_state.final_pair} score
