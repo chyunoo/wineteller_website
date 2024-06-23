@@ -94,8 +94,21 @@ def filter_wine(data, input_occasion) :
             (data["casual_sc_norm"] == input_occasion["casual_sc_norm"])]
     return(filtered)
 
+def pair_wine_helper(multiple_max_keys, multiple_max_values,max_value) :
+    if len(multiple_max_values) > 1 and max_value == 4 :
+        # Return a tuple of len = 2
+        final_pair = (multiple_max_keys[0], multiple_max_keys[1])
+    elif len(multiple_max_values) > 1 and max_value < 4 :
+        # Return a list of len = 4
+        final_pair = [{multiple_max_keys[i] : multiple_max_values[i]} for i in range(len(multiple_max_keys))]
+    else :
+        # Return a list of len = 1
+        final_pair = multiple_max_keys
+    return final_pair
+
 def pair_wine(data, filtered, input_occasion) :
     try :
+        final_pair = ""
         final_selection = filtered.sample(4)
     except ValueError :
         if len(filtered) == 0 :
@@ -119,6 +132,7 @@ def pair_wine(data, filtered, input_occasion) :
             multiple_max_values = [value for key, value in sorted_items if value == max_value]
             # If there are multiple maximum values and of high intensity, filter based on average max
             if len(multiple_max_values) > 1 and max_value == 4 :
+                final_pair = pair_wine_helper(multiple_max_keys, multiple_max_values,max_value)
                 max_pair = (multiple_max_keys[0], multiple_max_keys[1])
                 indices = [i.index("sc") for i in max_pair]
                 input_highest_sc = [max_pair[i][:indices[i]+2] for i in range(len(indices))]
@@ -126,17 +140,19 @@ def pair_wine(data, filtered, input_occasion) :
                 final_selection = closest_rows.sort_values("avg_max", ascending=False)[:4]
             # Else shuffle
             elif len(multiple_max_values) > 1 and max_value < 4 :
+                final_pair = pair_wine_helper(multiple_max_keys, multiple_max_values,max_value)
                 final_selection = closest_rows.sample(4)
             # Else filter based on highest sc
             else:
+                final_pair = pair_wine_helper(multiple_max_keys, multiple_max_values,max_value)
                 max_pair = sorted_items[0]
                 input_highest_sc = max_pair[0]
                 index = input_highest_sc.index("sc")
                 input_highest_sc = input_highest_sc[:index+2]
                 final_selection = closest_rows.sort_values(input_highest_sc, ascending=False)[:4]
         else :
+            final_pair = ""
             final_selection = filtered
-
     desired_order_list = ["romantic", "moody", "casual", "fancy"]
     occasion_attributes = {'romantic': '', 'moody': '', 'casual': '', 'fancy': ''}
     occasion_attributes = {k: occasion_attributes[k] for k in desired_order_list}
@@ -152,4 +168,4 @@ def pair_wine(data, filtered, input_occasion) :
     countries = list(data.loc[pairing_id, ["country"]].country)
     all_description = [[pairing_description[i],descriptors[i], varieties[i], provinces[i], countries[i]] for i in range(len(descriptors))]
     recommendation = [pairing_id, pairing_occasion_attributes, all_description]
-    return recommendation
+    return final_pair, recommendation
