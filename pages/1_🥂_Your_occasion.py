@@ -10,8 +10,8 @@ import io
 st.set_page_config(initial_sidebar_state="collapsed")
 conn = st.connection('gcs', type=FilesConnection)
 data = conn.read("scored_data_1706/scored_data.csv", input_format="csv", ttl=None)
+st.session_state.len_dataset = len(data)
 @st.cache_data
-
 def fetch_image_from_gcs(bucket_name, file_path):
     credentials = service_account.Credentials.from_service_account_info(st.secrets["gcs"])
     # Create a client using the specified credentials
@@ -65,6 +65,11 @@ with col2:
                 st.session_state.final_pair = final_pair
                 your_wine = pair_wine(data, filtered_wine, processed_input)[1]
                 st.session_state.your_wine = your_wine
+                input_average = pair_wine(data, filtered_wine, processed_input)[2]
+                st.session_state.input_average = input_average
+                avg_final_selection = pair_wine(data, filtered_wine, processed_input)[3]
+                st.session_state.avg_final_selection = avg_final_selection
+
                 st.page_link("pages/3_🍷_Your_wine.py", label="Your wines are ready !")
 with col3:
     st.header("")
