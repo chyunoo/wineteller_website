@@ -40,49 +40,61 @@ if 'your_wine' in st.session_state :
 tab1, tab2, tab3, tab4 = st.tabs(["Wine 1", "Wine 2", "Wine 3", "Wine 4"])
 
 with tab1:
-   your_wine_plot = plot_wine_recommendations([your_wine[0][0]], [your_wine[1][0]], [your_wine[2][0]])
-   your_wine_description = your_wine[2][0]
+    try :
+        your_wine_plot = plot_wine_recommendations([your_wine[0][0]], [your_wine[1][0]], [your_wine[2][0]])
+        your_wine_description = your_wine[2][0]
 
-   st.subheader(f"{your_wine_description[-2]}, {your_wine_description[-1]}")
-   st.pyplot(fig=your_wine_plot, clear_figure=False)
-   st.write(f"🍇 : {your_wine_description[2]}")
-   st.write(f"🔑words : {your_wine_description[1][1:-1]}")
+        st.subheader(f"{your_wine_description[-2]}, {your_wine_description[-1]}")
+        st.pyplot(fig=your_wine_plot, clear_figure=False)
+        st.write(f"🍇 : {your_wine_description[2]}")
+        st.write(f"🔑words : {your_wine_description[1][1:-1]}")
 
-   with st.expander("Description"):
-        st.write(your_wine_description[0])
+        with st.expander("Description"):
+            st.write(your_wine_description[0])
+    except NameError :
+        st.write("🤖 : error_can't_find_occasion")
 
 with tab2:
-   your_wine_plot = plot_wine_recommendations([your_wine[0][1]], [your_wine[1][1]], [your_wine[2][1]])
-   your_wine_description = your_wine[2][1]
+    try:
+        your_wine_plot = plot_wine_recommendations([your_wine[0][1]], [your_wine[1][1]], [your_wine[2][1]])
+        your_wine_description = your_wine[2][1]
 
-   st.subheader(f"{your_wine_description[-2]}, {your_wine_description[-1]}")
-   st.pyplot(fig=your_wine_plot, clear_figure=False,use_container_width=True)
-   st.write(f"🍇 : {your_wine_description[2]}")
-   st.write(f"🔑words : {your_wine_description[1][1:-1]}")
+        st.subheader(f"{your_wine_description[-2]}, {your_wine_description[-1]}")
+        st.pyplot(fig=your_wine_plot, clear_figure=False,use_container_width=True)
+        st.write(f"🍇 : {your_wine_description[2]}")
+        st.write(f"🔑words : {your_wine_description[1][1:-1]}")
 
-   with st.expander("Description"):
-        st.write(your_wine_description[0])
+        with st.expander("Description"):
+             st.write(your_wine_description[0])
+    except NameError :
+        st.write("🤖 : error_can't_find_occasion")
 
 with tab3:
-   your_wine_plot = plot_wine_recommendations([your_wine[0][2]], [your_wine[1][2]], [your_wine[2][2]])
-   your_wine_description = your_wine[2][2]
+    try:
+        your_wine_plot = plot_wine_recommendations([your_wine[0][2]], [your_wine[1][2]], [your_wine[2][2]])
+        your_wine_description = your_wine[2][2]
 
-   st.subheader(f"{your_wine_description[-2]}, {your_wine_description[-1]}")
-   st.pyplot(fig=your_wine_plot, clear_figure=False)
-   st.write(f"🍇 : {your_wine_description[2]}")
-   st.write(f"🔑words : {your_wine_description[1][1:-1]}")
+        st.subheader(f"{your_wine_description[-2]}, {your_wine_description[-1]}")
+        st.pyplot(fig=your_wine_plot, clear_figure=False)
+        st.write(f"🍇 : {your_wine_description[2]}")
+        st.write(f"🔑words : {your_wine_description[1][1:-1]}")
 
-   with st.expander("Description"):
-        st.write(your_wine_description[0])
+        with st.expander("Description"):
+             st.write(your_wine_description[0])
+    except NameError :
+        st.write("🤖 : error_can't_find_occasion")
 
 with tab4:
-   your_wine_plot = plot_wine_recommendations([your_wine[0][3]], [your_wine[1][3]], [your_wine[2][3]])
-   your_wine_description = your_wine[2][3]
+    try:
+        your_wine_plot = plot_wine_recommendations([your_wine[0][3]], [your_wine[1][3]], [your_wine[2][3]])
+        your_wine_description = your_wine[2][3]
 
-   st.subheader(f"{your_wine_description[-2]}, {your_wine_description[-1]}")
-   st.pyplot(fig=your_wine_plot, clear_figure=False)
-   st.write(f"🍇 : {your_wine_description[2]}")
-   st.write(f"🔑words : {your_wine_description[1][1:-1]}")
+        st.subheader(f"{your_wine_description[-2]}, {your_wine_description[-1]}")
+        st.pyplot(fig=your_wine_plot, clear_figure=False)
+        st.write(f"🍇 : {your_wine_description[2]}")
+        st.write(f"🔑words : {your_wine_description[1][1:-1]}")
 
-   with st.expander("Description"):
-        st.write(your_wine_description[0])
+        with st.expander("Description"):
+             st.write(your_wine_description[0])
+    except NameError :
+        st.write("🤖 : error_can't_find_occasion")
