@@ -29,3 +29,14 @@ else :
              How moody : {st.session_state.occasion_input[1]},
              How casual : {st.session_state.occasion_input[2]},
              How fancy : {st.session_state.occasion_input[3]}""")
+
+if len(st.session_state.wine) > 4 :
+    st.write("shuffling wines and returning 4")
+elif len(st.session_state.wine) < 4 and len(st.session_state.wine) !=0 :
+    st.write(f"returning only {len(st.session_state.wine)}wines")
+elif len(st.session_state.final_pair) == 1 :
+    st.write(f"returning most similar wine with highest {st.session_state.final_pair} score")
+elif len(st.session_state.final_pair) == 2 :
+    st.write(f"returning most similar wine with highest average {st.session_state.final_pair} score")
+else :
+    st.write(f"shuffling and returning most similar wines")

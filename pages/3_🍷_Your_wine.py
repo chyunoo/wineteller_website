@@ -56,6 +56,9 @@ with tab1:
                 st.write("🤖 : error_can't_find_description")
     except NameError :
         st.write("🤖 : error_can't_find_occasion")
+    except IndexError :
+        st.write("🤖 : error_can't_find_more_wines")
+
 
 with tab2:
     try:
@@ -74,6 +77,8 @@ with tab2:
                 st.write("🤖 : error_can't_find_description")
     except NameError :
         st.write("🤖 : error_can't_find_occasion")
+    except IndexError :
+        st.write("🤖 : error_can't_find_more_wines")
 
 with tab3:
     try:

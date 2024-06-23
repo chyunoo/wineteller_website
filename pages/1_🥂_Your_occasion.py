@@ -9,7 +9,7 @@ import io
 
 st.set_page_config(initial_sidebar_state="collapsed")
 conn = st.connection('gcs', type=FilesConnection)
-data = conn.read("scored_data_1706/scored_data.csv", input_format="csv", ttl=600)
+data = conn.read("scored_data_1706/scored_data.csv", input_format="csv", ttl=None)
 @st.cache_data
 
 def fetch_image_from_gcs(bucket_name, file_path):
@@ -61,7 +61,9 @@ with col2:
             st.session_state.wine = filtered_wine
 
             if 'wine' in st.session_state and 'processed_input' in st.session_state :
-                your_wine = pair_wine(data, filtered_wine, processed_input)
+                final_pair = pair_wine(data, filtered_wine, processed_input)[0]
+                st.session_state.final_pair = final_pair
+                your_wine = pair_wine(data, filtered_wine, processed_input)[1]
                 st.session_state.your_wine = your_wine
                 st.page_link("pages/3_🍷_Your_wine.py", label="Your wines are ready !")
 with col3:
