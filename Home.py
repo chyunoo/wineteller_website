@@ -59,3 +59,5 @@ inspirer = 'R Schuring (2019)'
 
 st.caption(f" Born with {founder} and {cofounder}, raised by {founder}.
            \nGrandly inspired by {inspirer}'s work.")
+
+#
