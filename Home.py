@@ -57,7 +57,9 @@ founder = '[Hyunoo](https://github.com/chyunoo)'
 cofounder = '[Clément](https://github.com/ponpon32)'
 inspirer = 'R Schuring (2019)'
 
-st.caption(f" Born with {founder} and {cofounder}, raised by {founder}.
-           \nGrandly inspired by {inspirer}'s work.")
+st.caption(f"""
+           Born with {founder} and {cofounder}, raised by {founder}.
+           \nGrandly inspired by {inspirer}'s work.
+           """)
 
 #
